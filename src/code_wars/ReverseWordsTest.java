@@ -17,41 +17,31 @@ class ReverseWordsTest {
 
 	@Test
 	public void spacesTest() {
-
 		assertEquals("   ", ReverseWords.reverseWords("   "));
 	}
-
 }
 
 class ReverseWords {
 	public static String reverseWords(final String original) {
 
-		StringBuilder originalToStringBuilder = new StringBuilder();
 		boolean isNotAllSpaces = false;
-		for (int index = original.length() - 1; index >= 0; index--) {
+		for (int index = 0; index < original.length(); index++) {
 			if (!original.substring(index, index + 1).equals(" ")) {
 				isNotAllSpaces = true;
 			}
 		}
 
-		String reversedToString = "";
-		StringBuilder reversed = new StringBuilder();
-		if (isNotAllSpaces) {
-			for (int index = original.length() - 1; index >= 0; index--) {
-				originalToStringBuilder.append(original.substring(index, index + 1));
-			}
-
-			String reverseArr[] = originalToStringBuilder.toString().split(" ");
-
-			for (int endIndex = reverseArr.length - 1; endIndex >= 0; endIndex--) {
-				reversed.append(reverseArr[endIndex]).append(" ");
-			}
-			reversed.delete(reversed.length() - 1, reversed.length());
-			reversedToString = reversed.toString();
-		} else {
-			reversedToString = original;
+		if (!isNotAllSpaces) {
+			return original;
 		}
 
-		return reversedToString;
+		String arr[] = original.split(" ");
+		int i = 0;
+		for (String str : arr) {
+			arr[i] = new StringBuilder(str).reverse().toString(); // 直接new StringBuilder，不用給變數名稱
+			i++;
+		}
+
+		return String.join(" ", arr); // String.join()：JDK8新增方法--拼接，第一個參數為拼接符號，第二個參數為陣列或集合
 	}
 }
